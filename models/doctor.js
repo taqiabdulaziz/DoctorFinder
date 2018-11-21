@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Doctor.associate = function(models) {
       Doctor.belongsTo(models.Specialist)
-      Doctor.belongsToMan(models.Patient, {through: "Appointment"})
+      Doctor.belongsToMany(models.Patient, {through: "Appointment"})
   };
   return Doctor;
 };

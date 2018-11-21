@@ -8,7 +8,8 @@ module.exports = (sequelize, DataTypes) => {
     status: DataTypes.BOOLEAN
   }, {});
   Appointment.associate = function(models) {
-    // associations can be defined here
+      Appointment.belongsTo(models.Doctor)
+      Appointment.belongsTo(models.Patient)
   };
   return Appointment;
 };
