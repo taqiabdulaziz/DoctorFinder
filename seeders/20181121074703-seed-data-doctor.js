@@ -12,6 +12,16 @@ module.exports = {
       SpecialistId: 1,
       createdAt: new Date(),
       updatedAt: new Date()
+    },{
+      firstName: 'Robert',
+      lastName: 'Downey',
+      email: 'ironman@gmail.com',
+      password: 'password',
+      gender: 'Male',
+      role: 'Doctor',
+      SpecialistId: 2,
+      createdAt: new Date(),
+      updatedAt: new Date()
     }], {});
   },
 
