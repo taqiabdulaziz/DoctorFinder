@@ -11,6 +11,24 @@ module.exports = {
         role: 'patient',
         createdAt : new Date(),
         updatedAt  : new Date()
+      },{
+        firstName: 'Abed',
+        lastName: 'nego',
+        email: 'abednego@mail.com',
+        password: 'abednego',
+        gender: 'male',
+        role: 'patient',
+        createdAt : new Date(),
+        updatedAt  : new Date()
+      },{
+        firstName: 'Taqi',
+        lastName: 'Muhammad',
+        email: 'mtaqi@mail.com',
+        password: 'taqi',
+        gender: 'male',
+        role: 'patient',
+        createdAt : new Date(),
+        updatedAt  : new Date()
       }], {});
   },
 
