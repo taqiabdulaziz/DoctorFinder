@@ -9,7 +9,9 @@ module.exports = (sequelize, DataTypes) => {
     role: DataTypes.STRING
   }, {});
   Patient.associate = function(models) {
-    // associations can be defined here
+    Patient.belongsToMany(models.Doctor, {
+      through: "Appointment"
+    })
   };
   return Patient;
 };
