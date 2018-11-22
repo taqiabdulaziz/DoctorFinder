@@ -1,6 +1,7 @@
 const route = require('express').Router()
 let ControllerPatient = require(`../controllers/controllerPatient`)
 let Model = require(`../models`)
+let Patient = Model.Patient
 const {encrypt, compareHash} = require('../helpers')
 
 
@@ -24,12 +25,16 @@ route.post(`/login`, function (req, res) {
             }
             if(compareHash(req.body.password, result[0].password)){
                 res.redirect(`/patient/viewDetail`)
+            } else {
+                req.session.user = null
+                res.redirect(`/patient/login?msg=3`)
             }
         }else{
-            res.redirect(`/patient/login?msg=4`)
+            res.redirect(`/patient/login?msg=3`)
         }
-    }).catch(err => {
-        res.send(err)
+        }).catch(err => {
+            req.session.user = null
+            res.redirect(`/patient/login?msg=3`)
     });
 })
 
