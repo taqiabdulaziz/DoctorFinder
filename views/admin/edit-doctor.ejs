@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <% include ../partials/head %>
+</head>
+<body>
+    <div class="container container-fluid">
+        <h3> Edit Doctor </h3>
+        <form method="POST" action="/admin/edit/<%= data.id %>">
+            <div class="form-group">
+                <label> First Name </label>
+                <input name="first_name" type="text" class="form-control" value="<%=data.firstName %>">
+            </div>
+            <div class="form-group">
+                <label> Last Name</label>
+                <input name="last_name" type="text" class="form-control"  value="<%= data.lastName %>">
+            </div>
+            <div class="form-group">
+                <label> Email </label>
+                <input name="email" type="email" class="form-control"  value="<%= data.email %>">
+            </div>
+            <div class="form-group">
+                    <label> Specialist</label>
+                    <select  class="form-control" name="specialist">
+                        <option>Choose...</option>
+                        <% specialists.forEach(x=>{ %>
+                        <option > <%= x.specialistName %></option>
+                      <% }) %>
+                    </select>
+            </div>
+            <div class="form-group radio">
+                <label><input type="radio" name="gender" value="Laki-laki">Laki-laki</label>
+            </div>
+            <div class="form-group radio">
+                <label><input type="radio" name="gender" value="Laki-laki">Perempuan</label>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
