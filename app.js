@@ -10,10 +10,6 @@ const doctor = require('./routes/doctor')
 const patient = require('./routes/patient')
 const admin = require('./routes/admin')
 
-<<<<<<< HEAD
-app.use(expressSession({secret: "waduh"}))
-
-=======
 app.use(expressSession({ secret: "waduh" }))
 app.use(function(req, res, next) {
     if (req.session.user) {
@@ -24,7 +20,6 @@ app.use(function(req, res, next) {
     }
     next()
 })
->>>>>>> c98a746e756fb09cb6d75608cbdf2488fcfd1573
 app.use('/', home)
 app.use('/admin', admin)
 app.use('/doctor', doctor)
