@@ -6,7 +6,8 @@ class ControllerPatient {
 
     static login(req, res) {
         res.render('login', {
-            role: 'patient'
+            role: 'patient',
+            q: req.query.msg
         })
     }
 
@@ -60,7 +61,16 @@ class ControllerPatient {
         }).then((result) => {
             res.redirect(`/patient/viewDetail`)
         }).catch((err) => {
-            res.send(err)
+            switch (err.errors[0].message) {
+                case "Validation notEmpty on disease failed":
+                    res.redirect(`/patient/executeAppointment/${req.session.user.userId}?msg=1`)
+                    break;
+            
+                case "Validation notEmpty on date failed":
+                res.redirect(`/patient/executeAppointment/${req.session.user.userId}?msg=2`)
+                    break;
+            }
+            
         });
     }
 

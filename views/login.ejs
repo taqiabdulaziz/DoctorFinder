@@ -7,6 +7,15 @@
 <body>
     <%if(!session.user) {%>
     <div class="container container-fluid">
+    <%if(q == 3){%>
+<div class="alert alert-danger">
+<strong>Login</strong> gagal, coba perbaiki data login.
+</div>
+<%}else if(q == 4){ %>
+<div class="alert alert-danger">
+<strong>Tanggal Appointment</strong> tidak boleh kosong.
+</div>
+<%}%>
         <form method="POST" action="/<%=role%>/login">
             <div class="form-group">
                 <label> email </label>
