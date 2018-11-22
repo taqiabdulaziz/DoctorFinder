@@ -15,9 +15,11 @@ route.post(`/login`, function (req, res) {
         }
     }).then((result) => {
         let a = result.length
-        req.session.user ={
+        
+        req.session.user = {
             userId: result[0].id
         }
+        
         if (a == 0) {
             res.redirect(`/patient/login?msg=1`)
         } else {
@@ -31,6 +33,7 @@ route.post(`/login`, function (req, res) {
 //VIEW DATA
 route.get(`/viewDetail`, function(req, res) {
     ControllerPatient.viewDetail(req, res)
+//    res.send(req.session)
 })
 
 //MAKE APPOINTMENT

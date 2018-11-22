@@ -16,7 +16,7 @@ class ControllerPatient {
                 model: Model.Doctor
             },
             where: {
-                PatientId: req.session.user.id
+                PatientId: req.session.user.userId
             }
         }).then((result) => {
             res.render(`patient/patientDetails.ejs`, {
@@ -51,6 +51,7 @@ class ControllerPatient {
             disease: req.body.keluhan,
             createdAt: new Date(),
             date: req.body.date,
+            PatientId: req.session.user.userId,
             DoctorId: req.params.dokterId,
             status: false
         }).then((result) => {
