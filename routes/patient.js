@@ -61,4 +61,9 @@ route.post(`/executeAppointment/:dokterId`, function (req, res) {
     ControllerPatient.createAppointment(req, res)
 })
 
+route.get(`/logout`, function (req, res) {
+    req.session.user = null
+    res.redirect(`/patient/login`)
+})
+
 module.exports = route

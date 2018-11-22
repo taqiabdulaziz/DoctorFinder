@@ -9,13 +9,22 @@
             <a class="navbar-brand" href="#">HAI-DOC </a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
-            
+            <%if(!session.user){%>
+            <ul class="nav navbar-nav navbar-right">
+                <li id="home"><a href="/">Home</a></li>
+                <li id="contact"><a href="/patient/login">Login as Patient</a></li>
+                <li id="contact"><a href="/doctor/login">Login as Doctor</a></li>
+                <li id="contact"><a href="/admin/login">Login as Admin</a></li>
+            </ul>
+            <%} else {%>
             <ul class="nav navbar-nav navbar-right">
                 <li id="home"><a href="/">Home</a></li>
                 <li id="about"><a href="/patient">Patient</a></li>
-                <li id="contact"><a href="/doctor">ww</a></li>
-                <li id="contact"><a href="/subject">Admin</a></li>
+                <li id="contact"><a href="/doctor">Admin</a></li>
+                <li id="contact"><a href="/subject">Doctor</a></li>
+                <li id="contact"><a href="/patient/logout">LOGOUT</a></li>
             </ul>
+            <%}%>
             </div>
         </div>
 </nav>
