@@ -3,8 +3,9 @@
 <head>
     <% include partials/head %>
 </head>
+<% include partials/menu %>
 <body>
-        <% include partials/menu %>
+    <%if(!session.user) {%>
     <div class="container container-fluid">
         <form method="POST" action="/<%=role%>/login">
             <div class="form-group">
@@ -22,5 +23,6 @@
             <button type="submit" class="btn btn-primary">Login</button>
         </form>
     </div>
+    <%}%>
 </body>
 </html>

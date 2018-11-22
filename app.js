@@ -10,7 +10,15 @@ const doctor = require('./routes/doctor')
 const patient = require('./routes/patient')
 const admin = require('./routes/admin')
 
-app.use(expressSession({secret: "waduh"}))
+app.use(expressSession({ secret: "waduh" }))
+app.use(function(req, res, next) {
+    if (req.session.user) {
+        app.locals.session = req.session
+    } else {
+        app.locals.session = ""
+    }
+    next()
+})
 
 app.use('/', home)
 app.use('/admin', admin)

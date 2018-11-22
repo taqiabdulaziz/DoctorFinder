@@ -3,6 +3,7 @@
 <head>
     <% include ../partials/head %>
 </head>
+<% include ../partials/menu %>
 
 <div class="container">
   <h1>Appointment list</h1>
@@ -28,7 +29,13 @@
     <td><%=result[i].date%></td>
     <td><%=result[i].createdAt%></td>
     <td><%=result[i].Doctor.firstName%></td>
-    <td><%=result[i].status%></td>
+    <td>
+    <%if(result[i].status == true) {%>
+    <a href="#" class="text-primary">Resolved</a>
+    <%} else {%>
+    <a href="#" class="text-danger">Pending</a>
+    <%}%>
+    </td>
 
     
     

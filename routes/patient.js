@@ -4,7 +4,8 @@ let Model = require(`../models`)
 const {compareHash} = require('../helpers')
 let Patient = Model.Patient
 
-route.get('/login',ControllerPatient.login)
+
+route.get('/login', ControllerPatient.login)
 
 route.post(`/login`, function (req, res) {
     Patient.findAll({
@@ -15,7 +16,8 @@ route.post(`/login`, function (req, res) {
         let a = result.length
         
         req.session.user = {
-            userId: result[0].id
+            userId: result[0].id,
+            type: "patient"
         }
         
         if (a == 0) {
@@ -40,18 +42,32 @@ route.get(`/viewDetail`, function(req, res) {
 
 //MAKE APPOINTMENT
 route.get(`/makeAppointment`, function (req, res) {
+    if (!req.session.user) {
+        res.redirect(`/patient/login`)
+    }
     ControllerPatient.makeAppointment(req, res)
 })
 
 //MAKE APPOINTMENT
-route.get(`/executeAppointment/:dokterId`,function(req, res) {
+route.get(`/executeAppointment/:dokterId`, function (req, res) {
+    if (!req.session.user) {
+        res.redirect(`/patient/login`)
+    }
     res.render(`patient/makeAppointment.ejs`, {
         id: req.params.dokterId
     })
 })
 
-route.post(`/executeAppointment/:dokterId`, function(req, res) {
+route.post(`/executeAppointment/:dokterId`, function (req, res) {
+    if (!req.session.user) {
+        res.redirect(`/patient/login`)
+    }
     ControllerPatient.createAppointment(req, res)
+})
+
+route.get(`/logout`, function (req, res) {
+    req.session.user = null
+    res.redirect(`/patient/login`)
 })
 
 module.exports = route
