@@ -26,6 +26,6 @@ app.use('/doctor', doctor)
 app.use('/patient', patient)
 
 
-app.listen(3000, function(){
+app.listen(process.env.PORT || 3000, function(){
     console.log("Listening port: 3000")
 })
