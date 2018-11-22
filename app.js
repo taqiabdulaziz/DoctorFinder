@@ -6,8 +6,12 @@ app.set("view engine", "ejs")
 const home = require('./routes/index')
 const doctor = require('./routes/doctor')
 const patient = require('./routes/patient')
+const admin = require('./routes/admin')
 
 app.use('/', home)
+app.use('/admin', admin)
+app.use('/doctor', doctor)
+app.use('/patient', patient)
 
 
 app.listen(3000, function(){

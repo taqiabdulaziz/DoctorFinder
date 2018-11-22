@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     role: DataTypes.STRING
   }, {});
   Admin.associate = function(models) {
-    // associations can be defined here
+    
   };
   return Admin;
 };
