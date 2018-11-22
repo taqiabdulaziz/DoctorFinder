@@ -1,4 +1,5 @@
 const Model = require('../models')
+const {encrypt} = require('../helpers')
 
 class adminController {
     static listDoctor(req,res){
@@ -40,16 +41,18 @@ class adminController {
             specialistName : req.body.specialist
         }})
         .then(specialist=>{
-            return Model.Doctor.create({
+           
+           return Model.Doctor.create({
                 firstName: req.body.first_name,
                 lastName: req.body.last_name,
                 email: req.body.email,
-                password: req.body.password,
+                password: encrypt(req.body.password),
                 SpecialistId : specialist.id,
                 gender: req.body.gender,
             })
         })
         .then(data=>{
+            console.log("masuk sini ==========")
             res.redirect('/admin')
         })
         .catch(err=>{
