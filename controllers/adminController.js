@@ -24,6 +24,15 @@ class adminController {
             res.send(err)
         })
     }
+
+    static login(req, res){
+        res.render('login', {
+            role: 'patient',
+            q: req.query.msg
+        })
+    }
+
+
     static formAdd(req,res){
         Model.Specialist.findAll()
         .then(specialists=>{

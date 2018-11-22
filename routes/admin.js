@@ -3,6 +3,8 @@ const adminController = require('../controllers/adminController')
 
 route.get('/', adminController.listDoctor)
 
+route.get('/login', adminController.login)
+
 route.get('/add', adminController.formAdd)
 
 route.post('/add', adminController.addDoctor)
