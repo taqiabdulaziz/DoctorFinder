@@ -15,11 +15,11 @@ app.use(function(req, res, next) {
     if (req.session.user) {
         app.locals.session = req.session
     } else {
-        
         app.locals.session = ""
     }
     next()
 })
+
 app.use('/', home)
 app.use('/admin', admin)
 app.use('/doctor', doctor)

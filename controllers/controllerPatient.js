@@ -11,6 +11,9 @@ class ControllerPatient {
     }
 
     static viewDetail(req, res) {
+        if (!req.session.user) {
+            res.redirect(`/patient/login`)
+        }
         Model.Appointment.findAll({
             include: {
                 model: Model.Doctor
