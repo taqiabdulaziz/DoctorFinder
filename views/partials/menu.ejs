@@ -16,12 +16,10 @@
                 <li id="contact"><a href="/doctor/login">Login as Doctor</a></li>
                 <li id="contact"><a href="/admin/login">Login as Admin</a></li>
             </ul>
-            <%} else {%>
+            <%} else if(session.user.type == "patient"){%>
             <ul class="nav navbar-nav navbar-right">
                 <li id="home"><a href="/">Home</a></li>
-                <li id="about"><a href="/patient">Patient</a></li>
-             <li id="contact"><a href="/doctor">Admin</a></li>
-                <li id="contact"><a href="/subject">Doctor</a></li>
+                <li id="about"><a href="/patient/viewDetail">My Appointment</a></li>
                 <li id="contact"><a href="/patient/logout">LOGOUT</a></li>
             </ul>
             <%}%>
