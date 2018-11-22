@@ -7,10 +7,14 @@ class ControllerDoctor {
             where: { email: req.body.email }
         })
         .then(result => {
-            console.log(result)
             if(result){
+                console.log(result)
+                req.session.user = {
+                    userDoctor: result.id,
+                    q: undefined
+                }
                 if(compareHash(req.body.password, result.password)){
-                    res.redirect('/doctor')
+                    res.redirect('/doctor/schedule')
                 }
             }else{
                 throw new Error(`Email tidak ditemukan`)
@@ -21,8 +25,26 @@ class ControllerDoctor {
         });
     }
 
-    static schedule(req,res){
-        
+    static allSchedule(req,res){
+        Model.Appointment.findAll({ 
+            where : {
+                DoctorId: req.session.user.userDoctor
+            },
+            include:[{
+                model: Model.Patient
+            },{
+                model: Model.Doctor
+            }]
+        })
+        .then(appointments=>{
+            // res.send(appointments)
+            res.render('doctor/schedule-list',{
+                dataAppointments : appointments
+            })
+        })
+        .catch(err=>{
+            res.send(err)
+        })
     }
 }
 

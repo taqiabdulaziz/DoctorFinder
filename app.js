@@ -19,7 +19,6 @@ app.use(function(req, res, next) {
     }
     next()
 })
-
 app.use('/', home)
 app.use('/admin', admin)
 app.use('/doctor', doctor)

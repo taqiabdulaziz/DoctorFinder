@@ -23,7 +23,13 @@
                 <li id="about"><a href="/patient/viewDetail">My Appointment</a></li>
                 <li id="contact"><a href="/patient/logout">LOGOUT</a></li>
             </ul>
-            <%}%>
+            <%} else {%>
+            <ul class="nav navbar-nav navbar-right">
+                <li id="home"><a href="/">Home</a></li>
+                <li id="about"><a href="/patient/viewDetail">My Appointment</a></li>
+                <li id="contact"><a href="/patient/logout">LOGOUT</a></li>
+            </ul>
+            <% }  %>
             </div>
         </div>
 </nav>
