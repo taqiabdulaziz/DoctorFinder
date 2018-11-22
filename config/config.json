@@ -14,10 +14,10 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "postgres",
-    "password": "postgres",
-    "database": "haiDoc_development",
-    "host": "127.0.0.1",
+    "username": "wsswffrbfopequ",
+    "password": "dfd591cf52e3836ce8e850b22164158e20201168fdeb7eac60beb056fa29ca1a",
+    "database": "d1qp22dn547k6a",
+    "host": "ec2-54-204-36-249.compute-1.amazonaws.com",
     "dialect": "postgres"
   }
 }
