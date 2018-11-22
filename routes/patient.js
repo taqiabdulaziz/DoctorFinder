@@ -17,6 +17,10 @@ route.post(`/login`, function (req, res) {
         let a = result.length
         req.session.user = {
             userId: result[0].id,
+            firstName: result[0].firstName,
+            lastName: result[0].lastName,
+            email: result[0].email,
+            gender: result[0].gender,
             type: "patient"
         }
 
@@ -65,6 +69,26 @@ route.post(`/executeAppointment/:dokterId`, function (req, res) {
 route.get(`/logout`, function (req, res) {
     req.session.user = null
     res.redirect(`/patient/login`)
+})
+
+//SIGNUP
+route.get(`/signup`, ControllerPatient.signup)
+
+route.post(`/signup`, function(req, res) {
+    Patient.create({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        password: req.body.password,
+        gender: req.body.gender,
+        role: "patient",
+        createdAt: new Date(),
+        updatedAt: new Date()
+    }).then((result) => {
+        res.redirect(`/patient/login`)
+    }).catch((err) => {
+        res.send(err)
+    });
 })
 
 module.exports = route
