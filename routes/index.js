@@ -1,5 +1,6 @@
 const route = require('express').Router()
 const Model = require('../models')
+const ControllerPatient = require(`../controllers/controllerPatient`)
 
 route.get('/', function (req, res) {
     Model.Appointment.findAll({
@@ -14,6 +15,7 @@ route.get('/', function (req, res) {
         res.send(err)
     });
 })
+
 
 
 module.exports = route

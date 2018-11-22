@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+    
+</head>
+
+<div class="container">
+<h1>Pilih Spesialis</h1>
+<br></br>
+<br></br>
+<a href="/patient/makeAppointment?msg=3"class="btn btn-primary" href="#" role="button">Umum</a>
+<a href="/patient/makeAppointment?msg=4"class="btn btn-primary" href="#" role="button">THT</a>
+<a href="/patient/makeAppointment?msg=5"class="btn btn-primary" href="#" role="button">Spesialis</a>
+<a href="/patient/makeAppointment?msg=1"class="btn btn-primary" href="#" role="button">Anak</a>
+<a href="/patient/makeAppointment?msg=2"class="btn btn-primary" href="#" role="button">Cardiology</a>
+<br></br>
+
+<div class="container">
+  <h1>Doctor list</h1>
+  
+  <table class="table table-dark">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Specialist</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+    <%for(let i =0; i < doctorList.length; i++) {%>
+    <tr>
+    <td><%=doctorList[i].id %></td>
+    <td><%=doctorList[i].firstName%></td>
+    <td><%=doctorList[i].lastName%></td>
+    <td><%=doctorList[i].Specialist.specialistName%></td>
+    <td><a href="/patient/executeAppointment/<%=doctorList[i].id%>"class="btn btn-primary" href="#" role="button">Make Appointment</a></td>
+    
+  </tr>
+    <%}%>
+      
+      
+    </tbody>
+  </table>
+
+  
+</form>
+</div>
