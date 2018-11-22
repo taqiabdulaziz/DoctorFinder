@@ -10,7 +10,8 @@ class ControllerDoctor {
             if(result){
                 console.log(result)
                 req.session.user = {
-                    userDoctor: result.id
+                    userDoctor: result.id,
+                    q: undefined
                 }
                 if(compareHash(req.body.password, result.password)){
                     res.redirect('/doctor/schedule')

@@ -8,7 +8,8 @@ route.get('/', function(req,res){
 })
 route.get('/login', function(req,res){
     res.render('login', {
-        role: 'doctor'
+        role: 'doctor',
+        q: undefined
     })
 })
 route.post('/login', ControllerDoctor.login)
