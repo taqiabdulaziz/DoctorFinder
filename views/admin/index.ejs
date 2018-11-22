@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <% include ../partials/head %>
+</head>
+<body>
+    <div class=" container container-fluid">    
+        <h3 class="bg-3 text-left"> Add New Doctors </h3>
+        <a href="/admin/add"> <button type="button" class="btn btn-primary ">  Add </h3>  </button> </a> 
+        <h3 class="bg-3 text-left"> List Doctors </h3>
+        <%  if(data.length > 0) { %>
+        <table class="table table-striped" >
+            <thead>
+                <tr>
+                    <th scope="col"> Id </th>
+                    <th scope="col"> First Name</th>
+                    <th scope="col"> Last Name </th> 
+                    <th scope="col"> Email</th>
+                    <th scope="col"> Gender</th>
+                    <th scope="col"> Specialist </th>
+                    <th scope="col"> Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% data.forEach(dokter=>{ %>
+                <tr>
+                    <th> <%= dokter.id %></th>
+                    <th> <%= dokter.firstName %></th>
+                    <th> <%= dokter.lastName %> </th>
+                    <th> <%= dokter.email %>  </th> 
+                    <th> <%= dokter.gender %> </th>
+                    <% if(dokter.Specialist == null) { %> 
+                        <th> unassigned  </th>
+                    <% } else { %>
+                        <th> <%= dokter.Specialist.specialistName %> </th>  
+                    <% } %>
+                    <th> <a href="/admin/edit/<%= dokter.id %>"> Edit </a> | <a href="/admin/delete/<%= dokter.id %>">Delete</a> </th>
+                </tr> 
+                <% }) %>
+            </tbody>
+        </table>
+        <% } else { %>
+            <h1>Data tidak ada </h1>
+        <% } %>
+    </div>
+    
+</body>
+</html>
