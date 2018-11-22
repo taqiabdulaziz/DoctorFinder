@@ -1,17 +1,15 @@
 const route = require('express').Router()
 let ControllerPatient = require(`../controllers/controllerPatient`)
 let Model = require(`../models`)
+const {compareHash} = require('../helpers')
 let Patient = Model.Patient
 
-route.get('/login', function (req, res) {
-    ControllerPatient.login(req, res)
-})
+route.get('/login',ControllerPatient.login)
 
 route.post(`/login`, function (req, res) {
     Patient.findAll({
         where: {
-            email: req.body.email,
-            password: req.body.password
+            email: req.body.email
         }
     }).then((result) => {
         let a = result.length
@@ -23,7 +21,11 @@ route.post(`/login`, function (req, res) {
         if (a == 0) {
             res.redirect(`/patient/login?msg=1`)
         } else {
-            res.redirect(`/patient/viewDetail`)
+            if(compareHash(req.body.password, result.password)){
+                res.redirect(`/patient/viewDetail`)
+            }else{
+                res.redirect(`/patient/login?msg=2`)
+            }
         }
     }).catch((err) => {
         res.send(err)
