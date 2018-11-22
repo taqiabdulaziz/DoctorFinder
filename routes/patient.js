@@ -21,11 +21,7 @@ route.post(`/login`, function (req, res) {
         if (a == 0) {
             res.redirect(`/patient/login?msg=1`)
         } else {
-            if(compareHash(req.body.password, result.password)){
                 res.redirect(`/patient/viewDetail`)
-            }else{
-                res.redirect(`/patient/login?msg=2`)
-            }
         }
     }).catch((err) => {
         res.send(err)
