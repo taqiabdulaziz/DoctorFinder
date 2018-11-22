@@ -6,11 +6,15 @@ class ControllerPatient {
 
     static login(req, res) {
         res.render('login', {
-            role: 'patient'
+            role: 'patient',
+            q: req.query.msg
         })
     }
 
     static viewDetail(req, res) {
+        if (!req.session.user) {
+            res.redirect(`/patient/login`)
+        }
         Model.Appointment.findAll({
             include: {
                 model: Model.Doctor
@@ -57,8 +61,23 @@ class ControllerPatient {
         }).then((result) => {
             res.redirect(`/patient/viewDetail`)
         }).catch((err) => {
-            res.send(err)
+            switch (err.errors[0].message) {
+                case "Validation notEmpty on disease failed":
+                    res.redirect(`/patient/executeAppointment/${req.session.user.userId}?msg=1`)
+                    break;
+            
+                case "Validation notEmpty on date failed":
+                res.redirect(`/patient/executeAppointment/${req.session.user.userId}?msg=2`)
+                    break;
+            }
+            
         });
+    }
+
+    static signup(req, res) {
+        res.render(`patient/signup.ejs`, {
+            q: undefined
+        })
     }
 
 }

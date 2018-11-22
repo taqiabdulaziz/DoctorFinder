@@ -9,8 +9,18 @@ module.exports = (sequelize, DataTypes) => {
     },
     PatientId: DataTypes.INTEGER,
     DoctorId: DataTypes.INTEGER,
-    date: DataTypes.DATE,
-    disease: DataTypes.STRING,
+    date: {
+      type: DataTypes.DATE,
+      validate: {
+        notEmpty: true
+      }
+    },
+    disease: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true
+      }
+    },
     status: DataTypes.BOOLEAN
   }, {});
   Appointment.associate = function(models) {

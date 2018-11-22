@@ -4,16 +4,29 @@
     <% include ../partials/head %>
     
 </head>
-
+<% include ../partials/menu %>
 <div class="container">
 <h1>Make Appointment</h1>
 <br></br>
 <br></br>
 <form action="/patient/executeAppointment/<%=id%>" method="POST">
+
+<%if(q == 1){%>
+<div class="alert alert-danger">
+<strong>Keluhan</strong> tidak boleh kosong.
+</div>
+<%}else if(q == 2){ %>
+<div class="alert alert-danger">
+<strong>Tanggal Appointment</strong> tidak boleh kosong.
+</div>
+<%}%>
+
+
+
   <div class="form-group">
     <label for="exampleInputEmail1">Keluhan</label>
     <input name="keluhan" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Masukan Keluhan, penyakit">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    <small id="emailHelp" class="form-text text-muted">We'll never share your complication with anyone else.</small>
   </div>
 
   <div class="form-group">
