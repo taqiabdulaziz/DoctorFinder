@@ -27,7 +27,7 @@ route.post(`/login`, function (req, res) {
         if (a == 0) {
             res.redirect(`/patient/login?msg=4`)
         } else {
-            res.redirect(`/patient/viewDetail`)
+                res.redirect(`/patient/viewDetail`)
         }
     }).catch((err) => {
         res.redirect(`/patient/login?msg=3`)

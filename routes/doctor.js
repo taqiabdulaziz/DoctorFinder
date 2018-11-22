@@ -13,7 +13,7 @@ route.get('/login', function(req,res){
 })
 route.post('/login', ControllerDoctor.login)
 
-// route.get('/schedule', ControllerDoctor.allSchedule)
+route.get('/schedule', ControllerDoctor.allSchedule)
 
 
 module.exports = route

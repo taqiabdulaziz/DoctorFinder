@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+<body>
+    <% include ../partials/menu %>
+    <div class=" container container-fluid">    
+        <h3 class="bg-3 text-left"> List Appointment </h3>
+        <%  if(dataAppointments.length > 0) { %>
+        <table class="table table-striped" >
+            <thead>
+                <tr>
+                    <th scope="col"> Id </th>
+                    <th scope="col"> Patient</th>
+                    <th scope="col"> Appointment Date </th> 
+                    <th scope="col"> Disease</th>
+                    <th scope="col"> Status </th>
+                    <th scope="col"> Action </th>
+                </tr>
+            </thead>
+            <tbody>
+                <% dataAppointments.forEach(appointment=>{ %>
+                <tr>
+                    <th> <%= appointment.id %></th>
+                    <th> <%= appointment.Patient.firstName %></th>
+                    <th> <%= appointment.date %> </th>
+                    <th> <%= appointment.disease %>  </th> 
+                    <% if(appointment.status == false) { %> 
+                        <th><form type="POST" action="appointment/delete/<%= appointment.id%>"> <button type="button" class="btn btn-warning">Waiting</button>  </th>
+                    <% } else { %>
+                        <th> approved </th>  
+                    <% } %>
+                    <th> <a href="/appointment/detail/<%= appointment.id %>"> Detail Patient </a> </th>
+                </tr> 
+                <% }) %>
+            </tbody>
+        </table>
+        <% } else { %>
+            <h1>Data tidak ada </h1>
+        <% } %>
+    </div>
+</body>
+</html>
