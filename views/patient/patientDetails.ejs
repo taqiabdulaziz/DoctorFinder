@@ -6,9 +6,23 @@
 <% include ../partials/menu %>
 
 <div class="container">
-  <h1>Appointment list</h1>
-  <a class="btn btn-primary" href="/patient/makeAppointment" role="button">Make Appointment</a>
+  <h1>Welcome</h1>
+  <ul class="list-group">
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    First Name
+    <span class="badge badge-primary badge-pill"><%=session.user.firstName%></span>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    Email
+    <span class="badge badge-primary badge-pill"><%=session.user.email%></span>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    Gender
+    <span class="badge badge-primary badge-pill"><%=session.user.gender%></span>
+  </li>
+</ul>
   <br></br>
+  <a class="btn btn-primary" href="/patient/makeAppointment" role="button">Make Appointment</a>
   <br></br>
   <table class="table table-dark">
     <thead>

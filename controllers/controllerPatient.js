@@ -74,6 +74,12 @@ class ControllerPatient {
         });
     }
 
+    static signup(req, res) {
+        res.render(`patient/signup.ejs`, {
+            q: undefined
+        })
+    }
+
 }
 
 module.exports = ControllerPatient
