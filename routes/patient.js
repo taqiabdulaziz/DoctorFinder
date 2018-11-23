@@ -46,7 +46,7 @@ route.get(`/viewDetail`,checkAccess, function (req, res) {
 })
 
 //MAKE APPOINTMENT
-route.get(`/makeAppointment`, function (req, res) {
+route.get(`/makeAppointment`, checkAccess,function (req, res) {
     if (!req.session.user) {
         res.redirect(`/patient/login`)
     }
@@ -54,7 +54,7 @@ route.get(`/makeAppointment`, function (req, res) {
 })
 
 //MAKE APPOINTMENT
-route.get(`/executeAppointment/:dokterId`, function (req, res) {
+route.get(`/executeAppointment/:dokterId`,checkAccess, function (req, res) {
     if (!req.session.user) {
         res.redirect(`/patient/login`)
     }
@@ -64,7 +64,7 @@ route.get(`/executeAppointment/:dokterId`, function (req, res) {
     })
 })
 
-route.post(`/executeAppointment/:dokterId`, function (req, res) {
+route.post(`/executeAppointment/:dokterId`, checkAccess,function (req, res) {
     if (!req.session.user) {
         res.redirect(`/patient/login`)
     }
