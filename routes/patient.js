@@ -2,7 +2,8 @@ const route = require('express').Router()
 let ControllerPatient = require(`../controllers/controllerPatient`)
 let Model = require(`../models`)
 let Patient = Model.Patient
-const {encrypt, compareHash} = require('../helpers')
+const { encrypt, compareHash } = require('../helpers')
+let checkAccess = require(`../middleware/middlewarePatient`)
 
 
 route.get('/login', ControllerPatient.login)
@@ -39,7 +40,7 @@ route.post(`/login`, function (req, res) {
 })
 
 //VIEW DATA
-route.get(`/viewDetail`, function (req, res) {
+route.get(`/viewDetail`,checkAccess, function (req, res) {
     ControllerPatient.viewDetail(req, res)
     //    res.send(req.session)
 })
