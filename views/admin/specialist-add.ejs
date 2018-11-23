@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <% include ../partials/head %>
+</head>
+<body>
+    <% include ../partials/menu %>
+    <div class="container container-fluid">
+        <h3> Add New Specialist </h3>       
+        <form method="POST" action="/admin/add/specialist">
+            <div class="form-group">
+                <label> Name </label>
+                <input name="name" type="text" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+    </div>
+</body>
+</html>

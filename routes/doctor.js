@@ -1,33 +1,19 @@
 const route = require('express').Router()
+const ControllerDoctor = require('../controllers/controllerDoctor')
+
+route.get('/', ControllerDoctor.profile)
 
 route.get('/login', function(req,res){
     res.render('login', {
-        role: 'doctor'
+        role: 'doctor',
+        q: req.query.msg
     })
 })
+route.post(`/login`, ControllerDoctor.login)
 
-route.post(`/login`, function (req, res) {
-    Doctor.findAll({
-        where: {
-            email: req.body.email,
-            password: req.body.password
-        }
-    }).then((result) => {
-        let a = result.length
-        
-        req.session.user = {
-            userId: result[0].id
-        }
-        
-        if (a == 0) {
-            res.redirect(`/patient/login?msg=1`)
-        } else {
-            res.redirect(`/patient/viewDetail`)
-        }
-    }).catch((err) => {
-        res.send(err)
-    });
-})
+route.get('/schedule', ControllerDoctor.allSchedule)
+route.get('/logout', ControllerDoctor.logout)
+route.get('/approve/:idAppointment', ControllerDoctor.approve)
 
 
 module.exports = route

@@ -1,9 +1,44 @@
 const Model = require('../models')
-const {encrypt} = require('../helpers')
+const {encrypt, compareHash} = require('../helpers')
 
 class adminController {
+
+    static login(req,res){
+        Model.Admin.findOne({
+            where: { email: req.body.email }
+        })
+        .then(result => {
+            if(result){
+                console.log("masuk sini????")
+                req.session.user = {
+                    adminId: result.id,
+                    email: result.email,
+                    type: "admin"
+                }
+                if(compareHash(req.body.password, result.password)){
+                    console.log("masuk gakkkkk????")
+                    res.redirect('/admin/')
+                }
+            }else{
+                throw new Error(`Email tidak ditemukan`)
+            }
+        })
+        .catch(err => {
+            res.send(err)
+        });
+    }
+
+    static logout(req,res) {
+        req.session.user = null
+        res.redirect('/')
+    }
+
     static listDoctor(req,res){
         let dataDoctors = []
+        if(req.session.user == undefined){
+            res.redirect('/')
+        }
+
         Model.Doctor.findAll({
             include:[{
                 model: Model.Specialist
@@ -24,14 +59,6 @@ class adminController {
             res.send(err)
         })
     }
-
-    static login(req, res){
-        res.render('login', {
-            role: 'patient',
-            q: req.query.msg
-        })
-    }
-
 
     static formAdd(req,res){
         Model.Specialist.findAll()
@@ -68,6 +95,7 @@ class adminController {
             res.redirect(err)
         })
     }
+
     static formEdit(req, res){
         let id = req.params.id
         let dataDoctor = []
@@ -98,6 +126,7 @@ class adminController {
             specialistName : req.body.specialist
         }})
         .then(specialist=>{
+            console.log("masukkk")
             let input = { 
                 firstName: req.body.first_name,
                 lastName: req.body.last_name,
@@ -125,6 +154,22 @@ class adminController {
             res.redirect('/admin/')
         })
         .catch(err => {
+            res.send(err)
+        })
+    }
+
+    static formSpecialist(req,res){
+        res.render('admin/specialist-add')
+    }
+
+    static addSpecialist(req,res){
+        Model.Specialist.create({
+            specialistName: req.body.name 
+        })
+        .then(success=>{
+            res.redirect('/admin')
+        })
+        .catch(err=>{
             res.send(err)
         })
     }
