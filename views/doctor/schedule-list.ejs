@@ -23,11 +23,11 @@
                 <% dataAppointments.forEach(appointment=>{ %>
                 <tr>
                     <th> <%= appointment.id %></th>
-                    <th> <%= appointment.Patient.firstName %></th>
+                    <th> <%= appointment.PatientId %></th>
                     <th> <%= appointment.date %> </th>
                     <th> <%= appointment.disease %>  </th> 
                     <% if(appointment.status == false) { %> 
-                        <th><form type="POST" action="appointment/delete/<%= appointment.id%>"> <button type="button" class="btn btn-warning">Waiting</button>  </th>
+                        <th><a href="/doctor/approve/<%= appointment.id %>"> <button type="button" class="btn btn-warning">Waiting</button>  </th>
                     <% } else { %>
                         <th> approved </th>  
                     <% } %>
@@ -37,7 +37,7 @@
             </tbody>
         </table>
         <% } else { %>
-            <h1>Data tidak ada </h1>
+            <li><h4>Tidak Ada Appointment</h4></li> 
         <% } %>
     </div>
 </body>

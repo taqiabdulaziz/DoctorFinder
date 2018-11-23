@@ -1,50 +1,98 @@
 const Model = require('../models')
-const {compareHash} = require('../helpers')
+const { compareHash } = require('../helpers')
 
 class ControllerDoctor {
-    static login(req,res){
+    static login(req, res) {
         Model.Doctor.findOne({
             where: { email: req.body.email }
         })
-        .then(result => {
-            if(result){
-                console.log(result)
-                req.session.user = {
-                    userDoctor: result.id,
-                    q: undefined
+            .then(result => {
+                if (result) {
+                    req.session.user = {
+                        doctorId: result.id,
+                        firstName: result.firstName,
+                        lastName: result.lastName,
+                        email: result.email,
+                        gender: result.gender,
+                        SpecialistId: result.SpecialistId,
+                        type: "doctor"
+                    }
+                    if (compareHash(req.body.password, result.password)) {
+                        res.redirect('/doctor/')
+                    } else {
+                        req.session.user = null
+                        res.redirect(`/doctor/login?msg=3`)
+                    }
+                } else {
+                    req.session.user = null
+                    res.redirect(`/doctor/login?msg=3`)
                 }
-                if(compareHash(req.body.password, result.password)){
-                    res.redirect('/doctor/schedule')
-                }
-            }else{
-                throw new Error(`Email tidak ditemukan`)
-            }
-        })
-        .catch(err => {
-            res.send(err)
-        });
+            })
+            .catch(err => {
+                res.send(err)
+            });
     }
 
-    static allSchedule(req,res){
-        Model.Appointment.findAll({ 
-            where : {
-                DoctorId: req.session.user.userDoctor
+    static profile(req, res) {
+        Model.Doctor.findOne({
+            where: {
+                id: req.session.user.doctorId
+            }
+        })
+            .then(sucess => {
+                res.render('doctor/index', {
+                    dataDoctor: sucess
+                })
+            })
+            .catch(err => {
+                res.send(err)
+            })
+    }
+
+    static allSchedule(req, res) {
+        Model.Appointment.findAll({
+            where: {
+                DoctorId: req.session.user.doctorId
             },
-            include:[{
+            include: [{
                 model: Model.Patient
-            },{
+            }, {
                 model: Model.Doctor
             }]
         })
-        .then(appointments=>{
-            // res.send(appointments)
-            res.render('doctor/schedule-list',{
-                dataAppointments : appointments
+            .then(appointments => {
+                // res.send(appointments)
+                res.render('doctor/schedule-list', {
+                    dataAppointments: appointments
+                })
             })
+            .catch(err => {
+                res.send(err)
+            })
+    }
+
+    static approve(req, res) {
+        Model.Appointment.findOne({
+            where: {
+                id: req.params.idAppointment
+            }
         })
-        .catch(err=>{
-            res.send(err)
-        })
+            .then(appointment => {
+                return appointment.update({
+                    status: true
+                })
+            })
+            .then(success => {
+                res.redirect('/doctor/schedule')
+            })
+            .catch(err => {
+                res.send(err)
+            })
+    }
+
+    static logout(req, res) {
+        req.session.user = null
+        res.redirect(`/`)
     }
 }
 

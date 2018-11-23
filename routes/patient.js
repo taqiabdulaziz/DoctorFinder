@@ -1,36 +1,40 @@
 const route = require('express').Router()
 let ControllerPatient = require(`../controllers/controllerPatient`)
 let Model = require(`../models`)
-const { compareHash } = require('../helpers')
 let Patient = Model.Patient
+const {encrypt, compareHash} = require('../helpers')
 
 
 route.get('/login', ControllerPatient.login)
 
 route.post(`/login`, function (req, res) {
-    Patient.findAll({
+    Model.Patient.findAll({
         where: {
-            email: req.body.email,
-            password: req.body.password
+            email: req.body.email
         }
-    }).then((result) => {
-        let a = result.length
-        req.session.user = {
-            userId: result[0].id,
-            firstName: result[0].firstName,
-            lastName: result[0].lastName,
-            email: result[0].email,
-            gender: result[0].gender,
-            type: "patient"
-        }
-
-        if (a == 0) {
-            res.redirect(`/patient/login?msg=4`)
-        } else {
+    }).then(result => {
+        // console.log(result)
+        if(result){
+            req.session.user = {
+                userId: result[0].id,
+                firstName: result[0].firstName,
+                lastName: result[0].lastName,
+                email: result[0].email,
+                gender: result[0].gender,
+                type: "patient"
+            }
+            if(compareHash(req.body.password, result[0].password)){
                 res.redirect(`/patient/viewDetail`)
+            } else {
+                req.session.user = null
+                res.redirect(`/patient/login?msg=3`)
+            }
+        }else{
+            res.redirect(`/patient/login?msg=3`)
         }
-    }).catch((err) => {
-        res.redirect(`/patient/login?msg=3`)
+        }).catch(err => {
+            req.session.user = null
+            res.redirect(`/patient/login?msg=3`)
     });
 })
 
@@ -79,7 +83,7 @@ route.post(`/signup`, function(req, res) {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
-        password: req.body.password,
+        password: encrypt(req.body.password),
         gender: req.body.gender,
         role: "patient",
         createdAt: new Date(),

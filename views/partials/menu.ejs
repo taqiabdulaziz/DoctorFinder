@@ -21,15 +21,20 @@
             <ul class="nav navbar-nav navbar-right">
                 <li id="home"><a href="/">Home</a></li>
                 <li id="about"><a href="/patient/viewDetail">My Appointment</a></li>
-                <li id="contact"><a href="/patient/logout">LOGOUT</a></li>
+                <li id="contact"><a href="/patient/logout">Logout</a></li>
             </ul>
-            <%} else {%>
-            <ul class="nav navbar-nav navbar-right">
-                <li id="home"><a href="/">Home</a></li>
-                <li id="about"><a href="/patient/viewDetail">My Appointment</a></li>
-                <li id="contact"><a href="/patient/logout">LOGOUT</a></li>
-            </ul>
-            <% }  %>
+            <%} else if(session.user.type == "doctor"){%>
+                <ul class="nav navbar-nav navbar-right">
+                    <li id="home"><a href="/">Home</a></li>
+                    <li id="about"><a href="/doctor/schedule">Schedule</a></li>
+                    <li id="contact"><a href="/doctor/logout">Logout</a></li>
+                </ul>
+            <%} else if(session.user.type == "admin"){%>
+                <ul class="nav navbar-nav navbar-right">
+                    <li id="home"><a href="/admin">Home</a></li>
+                    <li id="contact"><a href="/admin/logout">Logout</a></li>
+                </ul>
+            <%}%>
             </div>
         </div>
 </nav>

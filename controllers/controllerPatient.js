@@ -1,7 +1,6 @@
 let Model = require(`../models`)
 let Patient = Model.Patient
 
-
 class ControllerPatient {
 
     static login(req, res) {
@@ -33,17 +32,24 @@ class ControllerPatient {
     }
 
     static makeAppointment(req, res) {
-        Model.Doctor.findAll({
-            include: {
-                model: Model.Specialist
-            },
-            where: {
-                SpecialistId: req.query.msg
-            }
-        }).then((result) => {
+        let nameSpecialist = []
+        Model.Specialist.findAll()
+        .then(specialists =>{
+            nameSpecialist = specialists
+            return Model.Doctor.findAll({
+                include: {
+                    model: Model.Specialist
+                },
+                where: {
+                    SpecialistId: req.query.msg
+                }
+            })
+        })
+        .then(doctors => {
             res.render(`patient/listDokter.ejs`, {
                 msg: req.query.msg,
-                doctorList: result
+                doctorList: doctors,
+                specialistList: nameSpecialist
             })    
         }).catch((err) => {
             res.send(err)

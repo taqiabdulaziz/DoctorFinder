@@ -6,8 +6,11 @@
 <body>
     <% include ../partials/menu %>
     <div class=" container container-fluid">    
-        <h3 class="bg-3 text-left"> Add New Doctors </h3>
+        <h3 class="bg-3 text-left"> Add New Doctor </h3>
         <a href="/admin/add"> <button type="button" class="btn btn-primary ">  Add </h3>  </button> </a> 
+        <h3 class="bg-3 text-left"> Add New Specialist </h3>
+        <a href="/admin/add/specialist"> <button type="button" class="btn btn-primary ">  Add </h3>  </button> </a> 
+
         <h3 class="bg-3 text-left"> List Doctors </h3>
         <%  if(data.length > 0) { %>
         <table class="table table-striped" >
