@@ -174,6 +174,24 @@ class adminController {
         })
     }
 
+    static signup(req, res) {
+        res.render(`admin/signup.ejs`, {
+            q: undefined
+        })
+    }
+
+    static executeSignup(req, res) {
+        Model.Admin.create({
+            email: req.body.email,
+            role: req.body.email,
+            password: encrypt(req.body.password)
+        }).then((result) => {
+            res.redirect(`/admin/login`)
+        }).catch((err) => {
+            res.send(err)
+        });
+    }
+
 }
 
 module.exports = adminController

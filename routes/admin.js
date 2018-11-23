@@ -23,4 +23,7 @@ route.get('/delete/:id', adminController.deleteDoctor)
 route.get('/add/specialist', adminController.formSpecialist)
 route.post('/add/specialist', adminController.addSpecialist)
 
+route.get(`/signup`, adminController.signup)
+route.post(`/signup`, adminController.executeSignup)
+
 module.exports = route
