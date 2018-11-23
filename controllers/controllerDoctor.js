@@ -57,7 +57,7 @@ class ControllerDoctor {
             }]
         })
         .then(appointments=>{
-            res.send(appointments)
+            // res.send(appointments)
             res.render('doctor/schedule-list',{
                 dataAppointments : appointments
             })
