@@ -25,7 +25,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     status: DataTypes.BOOLEAN
   }, {hooks:{
-    afterUpdate : (data, options) =>{
+      afterUpdate: (data, options) => {
+      console.log(data.Patient.dataValues.email);
+      
       var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -35,7 +37,7 @@ module.exports = (sequelize, DataTypes) => {
       });
       var mailOptions = {
         from: 'gamecowo12345@gmail.com',
-        to: 'lubisabednego@gmail.com',
+        to: data.Patient.dataValues.email,
         subject: 'Sending Email using Node.js',
         text: 'That was easy!'
       };

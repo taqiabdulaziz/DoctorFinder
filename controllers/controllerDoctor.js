@@ -75,6 +75,8 @@ class ControllerDoctor {
         Model.Appointment.findOne({
             where: {
                 id: req.params.idAppointment
+            }, include: {
+                model : Model.Patient
             }
         })
             .then(appointment => {
